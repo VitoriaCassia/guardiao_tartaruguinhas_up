@@ -1,4 +1,4 @@
-# app.py - Guardião das Tartaruguinhas 
+# Guardião das Tartaruguinhas 
 import streamlit as st
 import pandas as pd
 import os
@@ -146,7 +146,7 @@ def mostrar_tela_inicial():
     if os.path.exists("logo_sgt.png"):
         st.image("logo_sgt.png", use_container_width=True)
     else:
-        st.error("Imagem 'logo_sgt.png' não encontrada. Verifique se o arquivo está na mesma pasta do 'app.py'.")
+        st.error("Imagem 'logo_sgt.png' não encontrada.")
 
 def limpar_formulario():
     st.session_state.pop("regiao", None)
@@ -412,6 +412,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
