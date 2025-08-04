@@ -67,39 +67,42 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ********************** CARREGAR E SALVAR DADOS *******************************
-
-def carregar_dados():
-    global ninhos_df
-    if os.path.exists(data_path):
-        try:
-            ninhos_df = pd.read_csv(data_path)
-            if 'Número do ninho' in ninhos_df.columns:
-                ninhos_df['Número do ninho'] = ninhos_df['Número do ninho'].astype(int)
-            return ninhos_df
-        except pd.errors.EmptyDataError:
-            st.warning("O arquivo de dados está vazio. Criando um novo DataFrame.")
-            return inicializar_dataframe()
-    else:
-        return inicializar_dataframe()
+# ********************** CARREGAR E SALVAR DADOS  ******************
 
 def inicializar_dataframe():
     colunas = ['Número do ninho', 'Região', 'Quantidade de ovos', 'Status dos ovos',
                'Risco de alagamento', 'Dias para eclosão', 'Presença de predadores', 'Data de registro']
     return pd.DataFrame(columns=colunas)
 
-def salvar_dados(df):
-    df.to_csv(data_path, index=False)
+def carregar_dados_para_sessao():
+    # Carrega os dados para o st.session_state apenas se ainda não existirem
+    if 'ninhos_df' not in st.session_state:
+        if os.path.exists(data_path):
+            try:
+                st.session_state.ninhos_df = pd.read_csv(data_path)
+                if 'Número do ninho' in st.session_state.ninhos_df.columns:
+                    st.session_state.ninhos_df['Número do ninho'] = st.session_state.ninhos_df['Número do ninho'].astype(int)
+            except pd.errors.EmptyDataError:
+                st.warning("O arquivo de dados está vazio. Criando um novo DataFrame.")
+                st.session_state.ninhos_df = inicializar_dataframe()
+        else:
+            st.session_state.ninhos_df = inicializar_dataframe()
+
+def salvar_dados_da_sessao():
+    # Salva o DataFrame da st.session_state.ninhos_df no arquivo
+    st.session_state.ninhos_df.to_csv(data_path, index=False)
 
 
-# ********************** INICIAR VARIÁVEIS DE SESSÃO GLOBAIS *****************
+# ********************** INICIAR VARIÁVEIS DE SESSÃO GLOBAIS *******************
 
 if 'pagina' not in st.session_state:
     st.session_state.pagina = 'Início'
 if 'cadastro_salvo' not in st.session_state:
     st.session_state.cadastro_salvo = False
-if 'ninhos_df' not in st.session_state:
-    st.session_state.ninhos_df = carregar_dados()
+
+# Chamada única para carregar os dados no início.
+carregar_dados_para_sessao()
+
 if 'mensagem_sucesso' not in st.session_state:
     st.session_state.mensagem_sucesso = ""
 
@@ -161,7 +164,7 @@ def selectbox_com_default(label, opcoes, key):
     return st.selectbox(label, ["Selecione uma opção"] + opcoes, key=key)
 
 
-# ********************** CADASTRAR NINHO *******************************
+# ********************** CADASTRAR NINHO  **************************
 
 def cadastrar_ninho():
     st.markdown("<h2 style='color:#1b4d28;'>📝 Cadastrar Novo Ninho</h2>", unsafe_allow_html=True)
@@ -198,19 +201,22 @@ def cadastrar_ninho():
                     'Data de registro': data_registro
                 }
                 st.session_state.ninhos_df = pd.concat([st.session_state.ninhos_df, pd.DataFrame([novo_dado])], ignore_index=True)
-                salvar_dados(st.session_state.ninhos_df)
+                # Chama a nova função de salvar sem parâmetro.
+                salvar_dados_da_sessao()
                 st.session_state.cadastro_salvo = True
                 st.rerun()
 
-
-# ********************** ALTERAR NINHO *******************************
+# ********************** ALTERAR NINHO *************************************
 
 def alterar_ninho():
     st.markdown("<h2 style='color:#1b4d28;'>✏️ Alterar Ninho</h2>", unsafe_allow_html=True)
     if st.session_state.mensagem_sucesso:
         st.success(st.session_state.mensagem_sucesso)
         st.session_state.mensagem_sucesso = ""
+    
+    # Usa o DataFrame da session_state.
     df_para_alterar = st.session_state.ninhos_df.sort_values(by='Número do ninho')
+    
     if df_para_alterar.empty:
         st.warning("Nenhum ninho cadastrado para alterar.")
         return
@@ -236,9 +242,11 @@ def alterar_ninho():
                 st.warning("Por favor, selecione todas as opções corretamente antes de salvar.")
                 return
             st.session_state.ninhos_df.loc[st.session_state.ninhos_df['Número do ninho'] == int(id_escolhido), ['Região', 'Quantidade de ovos', 'Status dos ovos', 'Risco de alagamento', 'Dias para eclosão', 'Presença de predadores']] = [regiao, ovos, status, risco, dias, predadores]
-            salvar_dados(st.session_state.ninhos_df)
+            # Chama a nova função de salvar sem parâmetro.
+            salvar_dados_da_sessao()
             st.session_state.mensagem_sucesso = f"✅ Ninho {id_escolhido} alterado com sucesso!"
             st.rerun()
+
 
 # ********************** EXCLUIR NINHO *******************************************************
 
@@ -270,7 +278,7 @@ def excluir_ninho():
                 st.rerun()
 
 
-# ********************** RELATÓRIO *******************************
+# ********************** RELATÓRIO ****************************************************
 
 def relatorio():
     st.markdown("<h2 style='color:#1b4d28;'>📋 Relatório de Ninhos</h2>", unsafe_allow_html=True)
@@ -295,6 +303,7 @@ def relatorio():
                 </ul>
             </div>
             """, unsafe_allow_html=True)
+
 
 # ********************** ESTATÍSTICA ********************************************
 
@@ -380,7 +389,7 @@ def estatisticas():
             ax2.axis('equal')
             st.pyplot(fig2)
 
-# ********************** SAIR *******************************
+# ********************** SAIR ***********************************************************
 
 def sair():
     st.markdown("""
