@@ -44,13 +44,15 @@ ________________________________________
 
 guardiao_tartaruguinhas_up/
 │
+
 ├── app.py     
 
 ├── dados_ninhos.csv    
 
 ├── logo_sgt.png      
 
-│ │   ├── README.md   
+│ 
+├── README.md   
 
 └── requirements.txt      
 
