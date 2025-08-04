@@ -305,22 +305,11 @@ def estatisticas():
         st.info("Nenhum dado disponível para estatísticas.")
     else:
         df_limpo = df.drop_duplicates()
-        
-        # CORREÇÃO AQUI: Filtra apenas os ninhos com Risco Estável
-        df_estavel = df_limpo[df_limpo["Risco de alagamento"] == "Estável 🟢"]
-        
         total_ninhos = len(df_limpo)
-        
-        # CORREÇÃO AQUI: Calcula a média dos ovos APENAS nos ninhos estáveis
-        if not df_estavel.empty:
-            media_ovos = df_estavel["Quantidade de ovos"].mean()
-        else:
-            media_ovos = 0
-            
+        media_ovos = df_limpo["Quantidade de ovos"].mean()
         predadores_sim = df_limpo[df_limpo["Presença de predadores"] == "Sim"].shape[0]
         risco_critico = df_limpo[df_limpo["Risco de alagamento"] == "Crítico 🔴"].shape[0]
         ovos_danificados = df_limpo[df_limpo["Status dos ovos"] == "Danificado"].shape[0]
-        
         st.markdown("<br>", unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -363,7 +352,7 @@ def estatisticas():
         st.markdown("---")
         g_col1, g_col2 = st.columns(2)
         with g_col1:
-            st.subheader("Ninhos por Região")
+            st.subheader("Ninhos por Região")  # Gráfico de barras
             fig, ax = plt.subplots(figsize=(5, 2))
             sns.countplot(data=df_limpo, x='Região', ax=ax, palette='viridis', order=df_limpo['Região'].value_counts().index)
             ax.set_title('Distribuição de Ninhos por Região', fontsize=10)
@@ -373,22 +362,12 @@ def estatisticas():
             plt.yticks(fontsize=8)
             st.pyplot(fig)
         with g_col2:
-            st.subheader("Status dos Ovos")
+            st.subheader("Status dos Ovos") #Gráfico de pizza
             status_counts = df_limpo['Status dos ovos'].value_counts()
             fig2, ax2 = plt.subplots(figsize=(4, 2))
             ax2.pie(status_counts, labels=status_counts.index, autopct='%1.1f%%', startangle=90, colors=sns.color_palette('pastel'), textprops={'fontsize': 10})
             ax2.axis('equal')
             st.pyplot(fig2)
-
- # CORREÇÃO AQUI: Filtra apenas os ninhos com Risco Estável
-    df_estavel = df_limpo[df_limpo["Risco de alagamento"] == "Estável 🟢"]
-    
-    # Adicione estas 2 linhas para verificar os dados que o sistema está lendo
-    st.subheader("Dados dos Ninhos Estáveis para Análise")
-    st.dataframe(df_estavel[["Quantidade de ovos", "Risco de alagamento"]])
-
-    total_ninhos = len(df_limpo)
-
 
 
 # ********************** SAIR *******************************
@@ -423,6 +402,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
