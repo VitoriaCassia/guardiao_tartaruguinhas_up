@@ -13,19 +13,28 @@ ________________________________________
 Com uma interface simples e intuitiva, você pode:
 
 •	📝 Cadastrar novas informações sobre os ninhos.
+
 •	✏️ Alterar dados de ninhos já existentes.
+
 •	🗑️ Excluir registros que não são mais necessários.
+
 •	📋 Gerar Relatórios e ter uma visão clara do seu trabalho.
+
 •	📈 Acompanhar Estatísticas e celebrar cada sucesso.
+
 ________________________________________
 Juntos, transformamos a tecnologia em uma poderosa aliada da conservação. Porque, no final das contas, cada tartaruguinha que chega ao rio é um pedacinho do nosso futuro.
 ________________________________________
 💻 Tecnologias Usadas
 
 •	Python: A base de todo o projeto.
+
 •	Streamlit: Para criar a interface web de forma rápida e elegante.
+
 •	Pandas: Para a organização e manipulação dos dados dos ninhos.
+
 •	Matplotlib e Seaborn: Para transformar números em gráficos e estatísticas incríveis.
+
 ________________________________________
 ## 🖼️ Design e Acessibilidade
 
