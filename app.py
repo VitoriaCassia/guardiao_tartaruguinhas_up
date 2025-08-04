@@ -139,8 +139,8 @@ def mostrar_tela_inicial():
     st.markdown("""
     <div style='background-color: white; padding: 20px; border-radius: 10px; margin-bottom: 10px; text-align: center;'>         
         <h1 style='color: #1b4d28; font-weight: bold; font-size: 2.8em;'>🌟 Bora de Missão! 🌟 </h1>
-        <p style='color: #1b4d28; font-weight: bold; font-size: 1.7em;'>Você está prestes a entrar na jornada de proteção dos ninhos das tartaruguinhas da Amazônia.</p>
-        <p style='color: #1b4d28; font-weight: bold; font-size: 1.7em;'>Escolha uma opção ao lado e ajude a proteger a vida de cada tartaruguinha.</p>
+        <p style='color: #1b4d28; font-weight: bold; font-size: 1.5em;'>Você está prestes a entrar na jornada de proteção dos ninhos das tartaruguinhas da Amazônia.</p>
+        <p style='color: #1b4d28; font-weight: bold; font-size: 1.5em;'>Escolha uma opção ao lado e ajude a proteger a vida de cada tartaruguinha.</p>
     </div>
     """, unsafe_allow_html=True)
     if os.path.exists("logo_sgt.png"):
@@ -400,4 +400,5 @@ elif st.session_state.pagina == "Relatório":
 elif st.session_state.pagina == "Estatísticas":
     estatisticas()
 elif st.session_state.pagina == "Sair":
+
     sair()
