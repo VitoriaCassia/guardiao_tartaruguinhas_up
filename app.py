@@ -306,12 +306,12 @@ def estatisticas():
     else:
         df_limpo = df.drop_duplicates()
         
-        # CORREÇÃO AQUI: Filtra apenas os ninhos com Risco Estável
+        # Filtra apenas os ninhos com Risco Estável
         df_estavel = df_limpo[df_limpo["Risco de alagamento"] == "Estável 🟢"]
         
         total_ninhos = len(df_limpo)
         
-        # CORREÇÃO AQUI: Calcula a média dos ovos APENAS nos ninhos estáveis
+        # Calcula a média dos ovos APENAS nos ninhos estáveis
         if not df_estavel.empty:
             media_ovos = df_estavel["Quantidade de ovos"].mean()
         else:
@@ -412,6 +412,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
