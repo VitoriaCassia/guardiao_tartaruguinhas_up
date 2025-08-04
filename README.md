@@ -43,7 +43,6 @@ ________________________________________
 ## 📂 Estrutura do Projeto
 
 guardiao_tartaruguinhas_up/
-│
 
 ├── app.py     
 
