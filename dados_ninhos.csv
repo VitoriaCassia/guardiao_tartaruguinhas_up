@@ -1,0 +1,21 @@
+Número do ninho,Região,Quantidade de ovos,Status dos ovos,Risco de alagamento,Dias para eclosão,Presença de predadores,Data de registro
+1,Centro-Oeste,11,Ameaçado,Crítico 🔴,6,Sim,01/08/2025
+2,Sul,2,Ameaçado,Estável 🟢,3,Não,01/08/2025
+3,Nordeste,5,Danificado,Sob observação 🟡,10,Sim,02/08/2025
+4,Norte,0,Intacto,Estável 🟢,0,Não,02/08/2025
+5,Centro-Oeste,3,Danificado,Estável 🟢,4,Não,02/08/2025
+6,Norte,0,Intacto,Estável 🟢,0,Não,02/08/2025
+7,Norte,0,Intacto,Estável 🟢,0,Não,02/08/2025
+8,Norte,0,Intacto,Estável 🟢,0,Não,02/08/2025
+9,Norte,0,Intacto,Estável 🟢,0,Não,02/08/2025
+10,Nordeste,5,Intacto,Estável 🟢,3,Sim,02/08/2025
+11,Nordeste,5,Ameaçado,Sob observação 🟡,3,Sim,02/08/2025
+12,Sudeste,5,Ameaçado,Sob observação 🟡,3,Sim,02/08/2025
+13,Nordeste,9,Ameaçado,Sob observação 🟡,1,Sim,02/08/2025
+14,Nordeste,9,Ameaçado,Sob observação 🟡,1,Sim,02/08/2025
+15,Norte,6,Intacto,Sob observação 🟡,100,Sim,02/08/2025
+16,Centro-Oeste,6,Ameaçado,Sob observação 🟡,5,Não,02/08/2025
+17,Centro-Oeste,6,Danificado,Crítico 🔴,5,Sim,03/08/2025
+18,Sudeste,14,Danificado,Crítico 🔴,2,Sim,03/08/2025
+19,Sudeste,7,Danificado,Crítico 🔴,1,Sim,03/08/2025
+20,Sudeste,11,Ameaçado,Sob observação 🟡,3,Sim,03/08/2025
