@@ -380,6 +380,17 @@ def estatisticas():
             ax2.axis('equal')
             st.pyplot(fig2)
 
+ # CORREÇÃO AQUI: Filtra apenas os ninhos com Risco Estável
+    df_estavel = df_limpo[df_limpo["Risco de alagamento"] == "Estável 🟢"]
+    
+    # Adicione estas 2 linhas para verificar os dados que o sistema está lendo
+    st.subheader("Dados dos Ninhos Estáveis para Análise")
+    st.dataframe(df_estavel[["Quantidade de ovos", "Risco de alagamento"]])
+
+    total_ninhos = len(df_limpo)
+
+
+
 # ********************** SAIR *******************************
 
 def sair():
@@ -412,5 +423,6 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
