@@ -1,6 +1,7 @@
 # 🐢 Guardião das Tartaruguinhas – Versão 2.0.0
 ________________________________________
 A Jornada Começa!
+
 Bem-vindo ao Guardião das Tartaruguinhas, o seu braço direito na missão de proteger a vida das tartaruguinhas. Inspirado pela paixão pela natureza e pelo desejo de cuidar dos nossos rios, este aplicativo foi criado para ser uma ferramenta essencial para todos que, como nós, acreditam que cada ninho conta.
 ________________________________________
 🌿 Sistema de apoio ao “Monitoramento comunitário de ninhos de tartarugas” na região amazônica, com foco na Educação Ambiental e Inclusão Digital de jovens, ribeirinhos e voluntários.
