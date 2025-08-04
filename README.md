@@ -44,11 +44,15 @@ ________________________________________
 
 guardiao_tartaruguinhas_up/
 │
-├── app.py                        
-├── dados_ninhos.csv             
-├── logo_sgt.png                 
-│   └── logo_sgt.png
-│   ├── README.md                    
-└── requirements.txt             
+├── app.py     
+
+├── dados_ninhos.csv    
+
+├── logo_sgt.png      
+
+│ │   ├── README.md   
+
+└── requirements.txt      
+
 ________________________________________
 Vamos nessa! A missão de proteger as tartaruguinhas continua.
