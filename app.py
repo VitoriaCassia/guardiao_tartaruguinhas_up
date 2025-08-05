@@ -1,4 +1,4 @@
-# Guardião das Tartaruguinhas 
+# Guardião das Tartaruguinhas - Versão 2.0.0
 import streamlit as st
 import pandas as pd
 import os
@@ -201,7 +201,7 @@ def cadastrar_ninho():
                     'Data de registro': data_registro
                 }
                 st.session_state.ninhos_df = pd.concat([st.session_state.ninhos_df, pd.DataFrame([novo_dado])], ignore_index=True)
-                # Chamada da função sem parâmetro, como já havíamos corrigido antes
+                # Chamada da função sem parâmetro
                 salvar_dados_da_sessao()
                 st.session_state.cadastro_salvo = True
                 st.rerun()
@@ -233,7 +233,7 @@ def alterar_ninho():
         predadores_opcoes = ["Sim", "Não"]
 
         with st.form("form_alteracao_ninho"):
-            # AQUI: A chave de cada componente agora inclui o id_escolhido
+            # A chave de cada componente agora inclui o id_escolhido
             regiao = st.selectbox("Região:", regioes_opcoes, index=regioes_opcoes.index(dado['Região']), key=f"alterar_regiao_{id_escolhido}")
             ovos = st.number_input("Quantidade de ovos:", min_value=0, value=int(dado['Quantidade de ovos']), key=f"alterar_ovos_{id_escolhido}")
             status = st.selectbox("Status dos ovos:", status_opcoes, index=status_opcoes.index(dado['Status dos ovos']), key=f"alterar_status_{id_escolhido}")
@@ -328,7 +328,7 @@ def estatisticas():
         
         total_ninhos = len(df_limpo)
         
-        # Calcula a média dos ovos APENAS nos ninhos estáveis
+        # Calcula a média dos ovos apenas nos ninhos estáveis
         if not df_estavel.empty:
             media_ovos = df_estavel["Quantidade de ovos"].mean()
         else:
@@ -429,6 +429,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
