@@ -5,6 +5,13 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime
+import pytz
+
+# Define o fuso horário de Brasília
+fuso_horario_brt = pytz.timezone('America/Sao_Paulo')
+
+# Pega a data e hora atuais no fuso horário de Brasília
+data_registro = datetime.now(fuso_horario_brt).strftime("%d/%m/%Y")
 
 
 # ***********DEFINIÇÃO DE LAYOUT E TÍTULO DO NAVEGADOR *********************************
@@ -429,6 +436,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
