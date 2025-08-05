@@ -201,10 +201,11 @@ def cadastrar_ninho():
                     'Data de registro': data_registro
                 }
                 st.session_state.ninhos_df = pd.concat([st.session_state.ninhos_df, pd.DataFrame([novo_dado])], ignore_index=True)
-                # Chama a nova função de salvar sem parâmetro.
+                # Chamada da função sem parâmetro, como já havíamos corrigido antes
                 salvar_dados_da_sessao()
                 st.session_state.cadastro_salvo = True
                 st.rerun()
+
 
 # ********************** ALTERAR NINHO *************************************
 
@@ -213,36 +214,41 @@ def alterar_ninho():
     if st.session_state.mensagem_sucesso:
         st.success(st.session_state.mensagem_sucesso)
         st.session_state.mensagem_sucesso = ""
-    
-    # Usa o DataFrame da session_state.
+
     df_para_alterar = st.session_state.ninhos_df.sort_values(by='Número do ninho')
-    
+
     if df_para_alterar.empty:
         st.warning("Nenhum ninho cadastrado para alterar.")
         return
+
     ids = df_para_alterar['Número do ninho'].astype(str).tolist()
     ids_options = ["Selecione uma opção"] + ids
     id_escolhido = st.selectbox("Escolha o número do ninho para alterar:", ids_options, key="alterar_id")
+
     if id_escolhido != "Selecione uma opção":
         dado = df_para_alterar[df_para_alterar['Número do ninho'] == int(id_escolhido)].iloc[0]
         regioes_opcoes = ["Norte", "Nordeste", "Sul", "Sudeste", "Centro-Oeste"]
         status_opcoes = ["Intacto", "Ameaçado", "Danificado"]
         risco_opcoes = ["Estável 🟢", "Sob observação 🟡", "Crítico 🔴"]
         predadores_opcoes = ["Sim", "Não"]
+
         with st.form("form_alteracao_ninho"):
-            regiao = st.selectbox("Região:", regioes_opcoes, index=regioes_opcoes.index(dado['Região']), key="alterar_regiao")
-            ovos = st.number_input("Quantidade de ovos:", min_value=0, value=int(dado['Quantidade de ovos']), key="alterar_ovos")
-            status = st.selectbox("Status dos ovos:", status_opcoes, index=status_opcoes.index(dado['Status dos ovos']), key="alterar_status")
-            risco = st.selectbox("Nível de risco:", risco_opcoes, index=risco_opcoes.index(dado['Risco de alagamento']), key="alterar_risco")
-            dias = st.number_input("Dias para a eclosão:", min_value=0, value=int(dado['Dias para eclosão']), key="alterar_dias")
-            predadores = st.selectbox("Presença de predadores?", predadores_opcoes, index=predadores_opcoes.index(dado['Presença de predadores']), key="alterar_predadores")
+            # AQUI: A chave de cada componente agora inclui o id_escolhido
+            regiao = st.selectbox("Região:", regioes_opcoes, index=regioes_opcoes.index(dado['Região']), key=f"alterar_regiao_{id_escolhido}")
+            ovos = st.number_input("Quantidade de ovos:", min_value=0, value=int(dado['Quantidade de ovos']), key=f"alterar_ovos_{id_escolhido}")
+            status = st.selectbox("Status dos ovos:", status_opcoes, index=status_opcoes.index(dado['Status dos ovos']), key=f"alterar_status_{id_escolhido}")
+            risco = st.selectbox("Nível de risco:", risco_opcoes, index=risco_opcoes.index(dado['Risco de alagamento']), key=f"alterar_risco_{id_escolhido}")
+            dias = st.number_input("Dias para a eclosão:", min_value=0, value=int(dado['Dias para eclosão']), key=f"alterar_dias_{id_escolhido}")
+            predadores = st.selectbox("Presença de predadores?", predadores_opcoes, index=predadores_opcoes.index(dado['Presença de predadores']), key=f"alterar_predadores_{id_escolhido}")
+
             salvar_alteracao_button = st.form_submit_button("Salvar Alteração")
+
         if salvar_alteracao_button:
             if "Selecione uma opção" in [regiao, status, risco, predadores]:
                 st.warning("Por favor, selecione todas as opções corretamente antes de salvar.")
                 return
+
             st.session_state.ninhos_df.loc[st.session_state.ninhos_df['Número do ninho'] == int(id_escolhido), ['Região', 'Quantidade de ovos', 'Status dos ovos', 'Risco de alagamento', 'Dias para eclosão', 'Presença de predadores']] = [regiao, ovos, status, risco, dias, predadores]
-            # Chama a nova função de salvar sem parâmetro.
             salvar_dados_da_sessao()
             st.session_state.mensagem_sucesso = f"✅ Ninho {id_escolhido} alterado com sucesso!"
             st.rerun()
