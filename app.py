@@ -275,7 +275,9 @@ def excluir_ninho():
             if st.button("Confirmar Exclusão", use_container_width=True):
                 st.session_state.ninhos_df = st.session_state.ninhos_df[st.session_state.ninhos_df['Número do ninho'] != int(id_escolhido)].reset_index(drop=True)
                 st.session_state.ninhos_df['Número do ninho'] = range(1, len(st.session_state.ninhos_df) + 1)
-                salvar_dados(st.session_state.ninhos_df)
+               
+                salvar_dados_da_sessao()
+
                 st.session_state.mensagem_sucesso = f"✅ Ninho {id_escolhido} excluído com sucesso!"
                 st.rerun()
         with col2:
