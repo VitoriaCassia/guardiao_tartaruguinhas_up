@@ -7,12 +7,6 @@ import seaborn as sns
 from datetime import datetime
 import pytz
 
-# Define o fuso horário de Brasília
-fuso_horario_brt = pytz.timezone('America/Sao_Paulo')
-
-# Pega a data e hora atuais no fuso horário de Brasília
-data_registro = datetime.now(fuso_horario_brt).strftime("%d/%m/%Y")
-
 
 # ***********DEFINIÇÃO DE LAYOUT E TÍTULO DO NAVEGADOR *********************************
 
@@ -190,9 +184,14 @@ def cadastrar_ninho():
             risco = selectbox_com_default("Nível de risco:", ["Estável 🟢", "Sob observação 🟡", "Crítico 🔴"], "risco")
             dias = st.number_input("Dias para a eclosão:", min_value=0, step=1, key="dias", format="%d")
             predadores = selectbox_com_default("Presença de predadores?", ["Sim", "Não"], "predadores")
-            data_registro = datetime.now().strftime("%d/%m/%Y")
+                  
+            # Código para a data
+            fuso_horario_brt = pytz.timezone('America/Sao_Paulo')
+            data_registro = datetime.now(fuso_horario_brt).strftime("%d/%m/%Y")
+            
             st.markdown(f"**Data do registro:** {data_registro}")
             salvar_button = st.form_submit_button("Salvar Cadastro")
+        
         if salvar_button:
             if "Selecione uma opção" in [regiao, status, risco, predadores]:
                 st.warning("Por favor, selecione todas as opções corretamente antes de salvar.")
@@ -436,6 +435,7 @@ elif st.session_state.pagina == "Estatísticas":
 elif st.session_state.pagina == "Sair":
 
     sair()
+
 
 
 
