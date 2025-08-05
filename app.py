@@ -420,6 +420,9 @@ def sair():
 with st.sidebar:
     menu_lateral(st.session_state.pagina)
 
+# A CADA MUDANÇA DE PÁGINA, SALVE OS DADOS
+salvar_dados_da_sessao()
+
 if st.session_state.pagina == "Início":
     mostrar_tela_inicial()
 elif st.session_state.pagina == "Cadastrar":
@@ -433,7 +436,6 @@ elif st.session_state.pagina == "Relatório":
 elif st.session_state.pagina == "Estatísticas":
     estatisticas()
 elif st.session_state.pagina == "Sair":
-
     sair()
 
 
